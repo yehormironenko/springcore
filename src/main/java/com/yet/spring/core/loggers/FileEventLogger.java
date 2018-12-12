@@ -8,12 +8,15 @@ import java.io.IOException;
 
 public class FileEventLogger implements EventLogger {
 
+    private String filename;
+    private File file;
+
     public FileEventLogger(String filename) {
         this.filename = filename;
     }
 
     public void init() {
-        this.file = new File(filename);
+        file = new File(filename);
         if (file.exists() && !file.canWrite()) {
             throw new IllegalArgumentException("Can't write to file");
         } else if (!file.exists()) {
@@ -26,12 +29,9 @@ public class FileEventLogger implements EventLogger {
 
     }
 
-    private String filename;
-    private File file;
-
     public void logEvent(Event event) {
         try {
-            FileUtils.writeStringToFile(file, event.getMsg(), true);
+            FileUtils.writeStringToFile(file, event.toString(), true);
         } catch (IOException e) {
             e.printStackTrace();
         }

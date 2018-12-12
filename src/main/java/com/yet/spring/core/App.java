@@ -37,6 +37,7 @@ public class App {
         Event event = context.getBean(Event.class);
         app.logEvent(event, "Some event for 1");
 
+
         event = context.getBean(Event.class);
         app.logEvent(event, "Some event for 2");
         context.close();
