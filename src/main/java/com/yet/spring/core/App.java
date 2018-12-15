@@ -1,28 +1,38 @@
 package com.yet.spring.core;
 
+import java.util.Map;
+
 import com.yet.spring.core.beans.Client;
+import com.yet.spring.core.beans.EventType;
 import com.yet.spring.core.loggers.ConsoleEventLogger;
 import com.yet.spring.core.beans.Event;
-import org.springframework.context.ApplicationContext;
+import com.yet.spring.core.loggers.EventLogger;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class App {
 
     private Client client;
-    private ConsoleEventLogger eventLogger;
+    private EventLogger defaultLogger;
+    private Map<EventType, EventLogger> loggers;
 
-
-    public App(Client client, ConsoleEventLogger eventLogger) {
+    public App(Client client, EventLogger defaultLogger, Map<EventType, EventLogger> loggers) {
+        super();
         this.client = client;
-        this.eventLogger = eventLogger;
+        this.defaultLogger = defaultLogger;
+        this.loggers = loggers;
     }
 
 
-    private void logEvent(Event event, String msg) {
+    private void logEvent(EventType eventType, Event event, String msg) {
         String message = msg.replaceAll(client.getId(), client.getFullName());
         event.setMsg(message);
-        eventLogger.logEvent(event);
+        EventLogger logger = loggers.get(eventType);
+        if (logger == null) {
+            logger = defaultLogger;
+        }
+
+        logger.logEvent(event);
     }
 
     public static void main(String[] args) {
@@ -35,13 +45,17 @@ public class App {
         app.logEvent("Some event for 2");
 */
         Event event = context.getBean(Event.class);
-        app.logEvent(event, "Some event for 1");
+        app.logEvent(EventType.INFO, event, "Some event for 1");
 
 
         event = context.getBean(Event.class);
-        app.logEvent(event, "Some event for 2");
-        context.close();
+        app.logEvent(EventType.ERROR, event, "Some event for 2");
 
+
+        event = context.getBean(Event.class);
+        app.logEvent(null, event, "Some event 3");
+
+        context.close();
     }
 
 
