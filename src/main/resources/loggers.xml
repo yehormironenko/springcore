@@ -11,9 +11,8 @@
     </bean>
 
     <bean id="cacheFileLogger" class="com.yet.spring.core.loggers.CacheFileLogger"
-          parent="fileEventLogger"
-          destroy-method="destroy">
-        <constructor-arg value="5"/>
+          destroy-method="destroy" parent="fileEventLogger">
+        <constructor-arg index="0" value="5"/>
     </bean>
 
 
