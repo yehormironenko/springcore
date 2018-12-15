@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.yet.spring.core.beans.Client;
 import com.yet.spring.core.beans.EventType;
-import com.yet.spring.core.loggers.ConsoleEventLogger;
 import com.yet.spring.core.beans.Event;
 import com.yet.spring.core.loggers.EventLogger;
 import org.springframework.context.ConfigurableApplicationContext;
