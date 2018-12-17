@@ -14,6 +14,7 @@ public class App {
     private Client client;
     private EventLogger defaultLogger;
     private Map<EventType, EventLogger> loggers;
+    private String startupMessage;
 
     public App(Client client, EventLogger defaultLogger, Map<EventType, EventLogger> loggers) {
         super();
@@ -22,6 +23,9 @@ public class App {
         this.loggers = loggers;
     }
 
+    public void setStartupMessage(String startupMessage) {
+        this.startupMessage = startupMessage;
+    }
 
     private void logEvent(EventType eventType, Event event, String msg) {
         String message = msg.replaceAll(client.getId(), client.getFullName());
@@ -43,6 +47,8 @@ public class App {
 /*      app.logEvent("Some event for 1");
         app.logEvent("Some event for 2");
 */
+        System.out.println(app.startupMessage);
+
         Event event = context.getBean(Event.class);
         app.logEvent(EventType.INFO, event, "Some event for 1");
 
