@@ -10,6 +10,7 @@
         http://www.springframework.org/schema/util/spring-util-3.2.xsd http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd">
 
     <import resource="loggers.xml"/>
+    <import resource="aspects.xml" />
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -46,6 +47,7 @@
     </bean>
 
     <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
+
 
     <util:map id="loggerMap">
         <entry key="INFO" value-ref="consoleEventLogger"/>
