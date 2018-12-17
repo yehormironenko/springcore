@@ -1,11 +1,18 @@
 package com.yet.spring.core.beans;
 
 import java.text.DateFormat;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Event {
     private static final AtomicInteger AUTO_ID = new AtomicInteger(0);
+
+    public static boolean isDay(int start, int end) {
+        LocalTime time = LocalTime.now();
+        return time.getHour() > start && time.getHour() < end;
+    }
+
 
     private int id;
     private String msg;
