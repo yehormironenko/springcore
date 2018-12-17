@@ -8,12 +8,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Event {
     private static final AtomicInteger AUTO_ID = new AtomicInteger(0);
 
-    public static boolean isDay(int start, int end) {
-        LocalTime time = LocalTime.now();
-        return time.getHour() > start && time.getHour() < end;
-    }
-
-
     private int id;
     private String msg;
     private Date date;
@@ -25,6 +19,18 @@ public class Event {
 
         this.date = date;
         this.dateFormat = df;
+    }
+
+
+    public Event(int id, Date date, String msg) {
+        this.id = id;
+        this.date = date;
+        this.msg = msg;
+    }
+
+    public static boolean isDay(int start, int end) {
+        LocalTime time = LocalTime.now();
+        return time.getHour() > start && time.getHour() < end;
     }
 
     public int getId() {
@@ -57,6 +63,10 @@ public class Event {
 
     public void setDateFormat(DateFormat dateFormat) {
         this.dateFormat = dateFormat;
+    }
+
+    public static void initAutoId(int id) {
+        AUTO_ID.set(id);
     }
 
     @Override

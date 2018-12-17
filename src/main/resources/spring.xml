@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/util/spring-util-3.2.xsd http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd">
 
     <import resource="loggers.xml"/>
-    <import resource="aspects.xml" />
+  <!--  <import resource="aspects.xml" /> -->
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -44,6 +44,24 @@
             <bean class="java.util.Date"/>
         </constructor-arg>
         <constructor-arg index="1" ref="dateFormat"/>
+    </bean>
+
+    <bean id ="jdbcTemplate"
+          class="org.springframework.jdbc.core.JdbcTemplate">
+          <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          >
+        <property name="driverClassName"
+                  value="${jdbc.driverClassName}"/>
+        <property name="url"
+                  value="${jdbc.url}"/>
+        <property name="username"
+                  value="${jdbc.username}"/>
+        <property name="password"
+                  value="${jdbc.password}"/>
     </bean>
 
     <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
